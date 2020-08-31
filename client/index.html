@@ -4,9 +4,10 @@
     </head>
     <body>
         
-        <div id="app"></div>
+        
         <input id="message" type="text">
         <button onclick="send()">Send</button>
+        <div id="app"></div>
         <script>
             const app = document.getElementById("app");
             const message = document.getElementById("message");
@@ -20,6 +21,25 @@
             }
 
             socket.on("Message",data=>{
+                const message = document.createElement("p")
+                message.textContent = data;
+                app.appendChild(message);
+                console.log(data);
+            })
+
+            socket.on("Connect",data=>{
+                const connect = document.createElement("p")
+                connect.textContent = "A client has connected";
+                connect.style.color = "green"
+                app.appendChild(connect);
+                console.log(data);
+            })
+
+            socket.on("Disconnect",data=>{
+                const disconnect = document.createElement("p");
+                disconnect.textContent = "A client has disconnected";
+                disconnect.style.color = "red";
+                app.appendChild(disconnect)
                 console.log(data);
             })
         </script>
